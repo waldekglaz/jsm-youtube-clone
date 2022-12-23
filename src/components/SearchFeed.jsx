@@ -6,16 +6,16 @@ import { useParams } from "react-router-dom";
 
 function SearchFeed() {
   const [videos, setVideos] = useState([]);
-  const searchTerm = useParams();
+  const { searchTerm } = useParams();
+
   useEffect(() => {
-    const data = fetchFromAPI(`search?part=snippet&q=${searchTerm}`).then(
-      (data) => {
-        setVideos(data.items);
-      }
-    );
+    fetchFromAPI(`search?part=snippet&q=${searchTerm}`).then((data) => {
+      setVideos(data.items);
+    });
   }, [searchTerm]);
+
   return (
-    <Box p={2} sx={{ overflowY: "hidden", height: "90vh", flex: 2 }}>
+    <Box p={2} minHeight="95vh">
       <Typography variant="h4" mb={2} sx={{ color: "white" }} fontWeight="bold">
         Search Results for:{" "}
         <span style={{ color: "#f31503" }}>{searchTerm}</span> videos
